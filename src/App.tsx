@@ -269,34 +269,34 @@ const certificationsData = {
 
 const competencyLabels = {
   es: [
-    { name: "Data Analysis", level: 75 },
-    { name: "Machine Learning", level: 75 },
-    { name: "Data Science", level: 75 },
-    { name: "Desarrollo de Software", level: 85 },
-    { name: "Cloud Computing", level: 45 },
-    { name: "Ingeniería de Prompt", level: 80 },
-    { name: "Trabajo en Equipo", level: 70 },
-    { name: "Resolución de Problemas", level: 75 },
-    { name: "GitHub Copilot", level: 65 },
-    { name: "ChatGPT", level: 65 },
-    { name: "Midjourney", level: 65 },
-    { name: "GitHub Spark", level: 65 },
-    { name: "Gemini", level: 65 },
+    { id: "data-analysis", name: "Data Analysis", level: 75 },
+    { id: "machine-learning", name: "Machine Learning", level: 75 },
+    { id: "data-science", name: "Data Science", level: 75 },
+    { id: "software-development", name: "Desarrollo de Software", level: 85 },
+    { id: "cloud-computing", name: "Cloud Computing", level: 45 },
+    { id: "prompt-engineering", name: "Ingeniería de Prompt", level: 80 },
+    { id: "teamwork", name: "Trabajo en Equipo", level: 70 },
+    { id: "problem-solving", name: "Resolución de Problemas", level: 75 },
+    { id: "github-copilot", name: "GitHub Copilot", level: 65 },
+    { id: "chatgpt", name: "ChatGPT", level: 65 },
+    { id: "midjourney", name: "Midjourney", level: 65 },
+    { id: "github-spark", name: "GitHub Spark", level: 65 },
+    { id: "gemini", name: "Gemini", level: 65 },
   ],
   en: [
-    { name: "Data Analysis", level: 75 },
-    { name: "Machine Learning", level: 75 },
-    { name: "Data Science", level: 75 },
-    { name: "Software Development", level: 85 },
-    { name: "Cloud Computing", level: 45 },
-    { name: "Prompt Engineering", level: 80 },
-    { name: "Teamwork", level: 70 },
-    { name: "Problem Solving", level: 75 },
-    { name: "GitHub Copilot", level: 65 },
-    { name: "ChatGPT", level: 65 },
-    { name: "Midjourney", level: 65 },
-    { name: "GitHub Spark", level: 65 },
-    { name: "Gemini", level: 65 },
+    { id: "data-analysis", name: "Data Analysis", level: 75 },
+    { id: "machine-learning", name: "Machine Learning", level: 75 },
+    { id: "data-science", name: "Data Science", level: 75 },
+    { id: "software-development", name: "Software Development", level: 85 },
+    { id: "cloud-computing", name: "Cloud Computing", level: 45 },
+    { id: "prompt-engineering", name: "Prompt Engineering", level: 80 },
+    { id: "teamwork", name: "Teamwork", level: 70 },
+    { id: "problem-solving", name: "Problem Solving", level: 75 },
+    { id: "github-copilot", name: "GitHub Copilot", level: 65 },
+    { id: "chatgpt", name: "ChatGPT", level: 65 },
+    { id: "midjourney", name: "Midjourney", level: 65 },
+    { id: "github-spark", name: "GitHub Spark", level: 65 },
+    { id: "gemini", name: "Gemini", level: 65 },
   ]
 }
 
@@ -408,7 +408,13 @@ function App() {
   const t = translations[lang]
   const workHistory = workHistoryData[lang]
   const certifications = certificationsData[lang]
-  const competencyLevels = competencyLabels[lang]
+  const competencyLevels = (competencyLabels[lang] ?? []).filter(
+    (skill): skill is { id: string; name: string; level: number } =>
+      Boolean(skill) &&
+      typeof skill.id === "string" &&
+      typeof skill.name === "string" &&
+      typeof skill.level === "number"
+  )
 
   const technicalSkills = {
     languages: ["Python", "Java", "JavaScript", "TypeScript", "CoffeeScript", "PHP", "HTML", ".NET Framework", "Arcade"],
@@ -646,7 +652,7 @@ function App() {
 
                 <div className="grid sm:grid-cols-2 gap-6">
                   {competencyLevels.map((skill) => (
-                    <motion.div key={skill.name} variants={fadeInUp}>
+                    <motion.div key={skill.id} variants={fadeInUp}>
                       <SkillBar name={skill.name} level={skill.level} lang={lang} isDark={isDark} />
                     </motion.div>
                   ))}
