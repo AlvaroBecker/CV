@@ -768,6 +768,7 @@ function App() {
             <div className="max-w-4xl mx-auto px-6">
               <div className={`flex flex-col sm:flex-row items-center justify-between gap-4 text-sm ${isDark ? 'text-muted-foreground' : lightMuted}`}>
                 <p className="font-mono">© 2025 Álvaro Becker Ruiz</p>
+                <p className="font-mono text-xs">Actualizado · Dic 2025</p>
                 <div className="flex items-center gap-4">
                   <a 
                     href="mailto:alvarobeckerruiz@gmail.com"
