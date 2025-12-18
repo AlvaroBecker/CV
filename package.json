@@ -3,6 +3,7 @@
     "private": true,
     "version": "0.0.0",
     "type": "module",
+    "homepage": "https://alvarobecker.github.io/cv-builder",
     "scripts": {
         "dev": "vite",
         "kill": "fuser -k 5000/tcp",
@@ -10,6 +11,8 @@
         "lint": "eslint .",
         "optimize": "vite optimize",
         "preview": "vite preview"
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d dist"
     },
     "dependencies": {
         "@github/spark": ">=0.43.1 <1",
