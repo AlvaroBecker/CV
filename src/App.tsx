@@ -565,7 +565,7 @@ function App() {
                   transition={{ delay: 0.5 }}
                 >
                   <a 
-                    href="https://www.linkedin.com/in/alvaro-becker-1335391b"
+                    href="https://www.linkedin.com/in/aibecker/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`p-3 rounded-xl border transition-all hover:scale-110 ${isDark ? 'bg-secondary/50 border-border hover:border-primary hover:bg-primary/10' : 'bg-white border-gray-200 hover:border-[oklch(0.65_0.2_250)] hover:bg-[oklch(0.65_0.2_250)]/10'}`}
@@ -772,7 +772,7 @@ function App() {
                     GitHub
                   </a>
                   <a 
-                    href="https://www.linkedin.com/in/alvaro-becker-1335391b"
+                    href="https://www.linkedin.com/in/aibecker/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`transition-colors ${isDark ? 'hover:text-primary' : 'hover:text-[oklch(0.65_0.2_250)]'}`}
