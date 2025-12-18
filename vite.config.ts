@@ -6,10 +6,11 @@ import sparkPlugin from "@github/spark/spark-vite-plugin";
 import createIconImportProxy from "@github/spark/vitePhosphorIconProxyPlugin";
 import { resolve } from 'path'
 
-const projectRoot = process.env.PROJECT_ROOT || import.meta.dirname
+const projectRoot = process.env. PROJECT_ROOT || import.meta. dirname
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/',  // Add this line for GitHub Pages
   plugins: [
     react(),
     tailwindcss(),
