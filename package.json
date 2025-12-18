@@ -3,7 +3,7 @@
     "private": true,
     "version": "0.0.0",
     "type": "module",
-    "homepage": "https://alvarobecker-cv.github.io",
+    "homepage": "https://alvarobecker.github.io/AlvaroBecker-CV.github.io/"
     "scripts": {
         "dev": "vite",
         "kill": "fuser -k 5000/tcp",
