@@ -379,7 +379,7 @@ function TimelineItem({
         <CardContent className="p-5">
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
             <div>
-              <h4 className="font-semibold text-lg">{title}</h4>
+              <h4 className={`font-semibold text-lg ${isDark ? '' : 'text-black'}`}>{title}</h4>
               <p className={isDark ? 'text-accent font-medium' : 'text-[oklch(0.42_0.12_170)] font-medium'}>{company}</p>
               <p className={`text-sm ${isDark ? 'text-muted-foreground' : 'text-[oklch(0.45_0.02_260)]'}`}>{location}</p>
             </div>
@@ -702,7 +702,7 @@ function App() {
                     <CardContent className="p-6">
                       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
                         <div>
-                          <h4 className="font-semibold text-lg">
+                          <h4 className={`font-semibold text-lg ${isDark ? '' : 'text-black'}`}>
                             {t.degree}
                           </h4>
                           <p className={isDark ? 'text-accent font-medium' : `${lightAccent} font-medium`}>
@@ -748,7 +748,7 @@ function App() {
                             {cert.year}
                           </div>
                           <div className="min-w-0">
-                            <h4 className="font-medium leading-tight line-clamp-2">
+                            <h4 className={`font-medium leading-tight line-clamp-2 ${isDark ? '' : 'text-black'}`}>
                               {cert.name}
                             </h4>
                             {cert.issuer && (
