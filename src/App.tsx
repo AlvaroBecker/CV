@@ -300,19 +300,19 @@ const competencyLabels = {
   ]
 }
 
-function SkillBar({ name, level, lang }: { name: string; level: number; lang: "es" | "en" }) {
+function SkillBar({ name, level, lang, isDark = true }: { name: string; level: number; lang: "es" | "en"; isDark?: boolean }) {
   const t = translations[lang]
   return (
     <div className="space-y-1.5">
       <div className="flex justify-between items-center">
-        <span className="text-sm font-medium text-foreground">{name}</span>
-        <span className="text-xs text-muted-foreground font-mono">
+        <span className={`text-sm font-medium ${isDark ? 'text-foreground' : 'text-[oklch(0.25_0.02_260)]'}`}>{name}</span>
+        <span className={`text-xs font-mono ${isDark ? 'text-muted-foreground' : 'text-[oklch(0.45_0.02_260)]'}`}>
           {level >= 80 ? t.skillLevels.advanced : level >= 50 ? t.skillLevels.intermediateHigh : t.skillLevels.intermediate}
         </span>
       </div>
-      <div className="h-2 bg-secondary rounded-full overflow-hidden">
+      <div className={`h-2 rounded-full overflow-hidden ${isDark ? 'bg-secondary' : 'bg-[oklch(0.92_0.01_260)]'}`}>
         <motion.div
-          className="h-full rounded-full bg-gradient-to-r from-primary via-accent to-primary"
+          className={`h-full rounded-full ${isDark ? 'bg-gradient-to-r from-primary via-accent to-primary' : 'bg-gradient-to-r from-[oklch(0.45_0.18_260)] via-[oklch(0.42_0.12_170)] to-[oklch(0.45_0.18_260)]'}`}
           initial={{ width: 0 }}
           whileInView={{ width: `${level}%` }}
           viewport={{ once: true }}
@@ -326,15 +326,17 @@ function SkillBar({ name, level, lang }: { name: string; level: number; lang: "e
 function SkillCategory({ 
   title, 
   icon: Icon, 
-  skills 
+  skills,
+  isDark = true
 }: { 
   title: string; 
   icon: React.ElementType; 
-  skills: string[] 
+  skills: string[];
+  isDark?: boolean;
 }) {
   return (
     <motion.div variants={fadeInUp} className="space-y-3">
-      <div className="flex items-center gap-2 text-accent">
+      <div className={`flex items-center gap-2 ${isDark ? 'text-accent' : 'text-[oklch(0.42_0.12_170)]'}`}>
         <Icon size={20} weight="duotone" />
         <h4 className="font-semibold text-sm uppercase tracking-wider">{title}</h4>
       </div>
@@ -343,7 +345,7 @@ function SkillCategory({
           <Badge 
             key={skill} 
             variant="secondary" 
-            className="font-mono text-xs bg-secondary/50 hover:bg-primary/20 hover:text-primary transition-colors cursor-default"
+            className={`font-mono text-xs transition-colors cursor-default ${isDark ? 'bg-secondary/50 hover:bg-primary/20 hover:text-primary' : 'bg-[oklch(0.92_0.01_260)] text-[oklch(0.35_0.02_260)] hover:bg-[oklch(0.45_0.18_260)]/15 hover:text-[oklch(0.45_0.18_260)]'}`}
           >
             {skill}
           </Badge>
@@ -358,35 +360,37 @@ function TimelineItem({
   title, 
   company, 
   location,
-  description 
+  description,
+  isDark = true
 }: { 
   date: string; 
   title: string; 
   company: string; 
   location: string;
   description: string[];
+  isDark?: boolean;
 }) {
   return (
     <motion.div variants={fadeInUp} className="relative pl-8 pb-8 last:pb-0">
-      <div className="absolute left-0 top-1 w-3 h-3 rounded-full bg-gradient-to-br from-primary to-accent border-2 border-background" />
-      <div className="absolute left-[5px] top-4 bottom-0 w-0.5 bg-gradient-to-b from-primary/50 to-transparent last:hidden" />
+      <div className={`absolute left-0 top-1 w-3 h-3 rounded-full border-2 ${isDark ? 'bg-gradient-to-br from-primary to-accent border-background' : 'bg-gradient-to-br from-[oklch(0.45_0.18_260)] to-[oklch(0.42_0.12_170)] border-[oklch(0.97_0.005_260)]'}`} />
+      <div className={`absolute left-[5px] top-4 bottom-0 w-0.5 last:hidden ${isDark ? 'bg-gradient-to-b from-primary/50 to-transparent' : 'bg-gradient-to-b from-[oklch(0.45_0.18_260)]/30 to-transparent'}`} />
       
-      <Card className="bg-card/50 border-border/50 hover:border-primary/30 transition-colors">
+      <Card className={`transition-colors ${isDark ? 'bg-card/50 border-border/50 hover:border-primary/30' : 'bg-white border-[oklch(0.88_0.01_260)] hover:border-[oklch(0.45_0.18_260)]/40'}`}>
         <CardContent className="p-5">
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
             <div>
-              <h4 className="font-semibold text-lg text-foreground">{title}</h4>
-              <p className="text-accent font-medium">{company}</p>
-              <p className="text-sm text-muted-foreground">{location}</p>
+              <h4 className="font-semibold text-lg">{title}</h4>
+              <p className={isDark ? 'text-accent font-medium' : 'text-[oklch(0.42_0.12_170)] font-medium'}>{company}</p>
+              <p className={`text-sm ${isDark ? 'text-muted-foreground' : 'text-[oklch(0.45_0.02_260)]'}`}>{location}</p>
             </div>
-            <Badge variant="outline" className="font-mono text-xs w-fit shrink-0 border-primary/30 text-primary">
+            <Badge variant="outline" className={`font-mono text-xs w-fit shrink-0 ${isDark ? 'border-primary/30 text-primary' : 'border-[oklch(0.45_0.18_260)]/30 text-[oklch(0.45_0.18_260)]'}`}>
               {date}
             </Badge>
           </div>
-          <ul className="space-y-2 text-sm text-muted-foreground">
+          <ul className={`space-y-2 text-sm ${isDark ? 'text-muted-foreground' : 'text-[oklch(0.45_0.02_260)]'}`}>
             {description.map((item, idx) => (
               <li key={idx} className="flex gap-2">
-                <span className="text-primary shrink-0">▹</span>
+                <span className={isDark ? 'text-primary shrink-0' : 'text-[oklch(0.45_0.18_260)] shrink-0'}>▹</span>
                 <span>{item}</span>
               </li>
             ))}
@@ -428,10 +432,18 @@ function App() {
     setLang(lang === "es" ? "en" : "es")
   }
 
+  const lightBg = 'bg-[oklch(0.97_0.005_260)]'
+  const lightText = 'text-[oklch(0.25_0.02_260)]'
+  const lightMuted = 'text-[oklch(0.45_0.02_260)]'
+  const lightPrimary = 'text-[oklch(0.45_0.18_260)]'
+  const lightAccent = 'text-[oklch(0.42_0.12_170)]'
+  const lightCard = 'bg-white'
+  const lightBorder = 'border-[oklch(0.88_0.01_260)]'
+
   return (
     <TooltipProvider>
-      <div className={`min-h-screen overflow-x-hidden transition-colors duration-300 ${isDark ? 'bg-background text-foreground' : 'bg-[oklch(0.98_0.01_250)] text-[oklch(0.2_0.03_270)]'}`}>
-        <div className={`fixed inset-0 pointer-events-none overflow-hidden ${isDark ? '' : 'opacity-30'}`}>
+      <div className={`min-h-screen overflow-x-hidden transition-colors duration-300 ${isDark ? 'bg-background text-foreground' : `${lightBg} ${lightText}`}`}>
+        <div className={`fixed inset-0 pointer-events-none overflow-hidden ${isDark ? '' : 'opacity-20'}`}>
           <div className="absolute -top-1/2 -right-1/2 w-full h-full bg-gradient-to-bl from-primary/10 via-transparent to-transparent animate-pulse-glow" />
           <div className="absolute -bottom-1/2 -left-1/2 w-full h-full bg-gradient-to-tr from-accent/10 via-transparent to-transparent animate-pulse-glow" style={{ animationDelay: "1.5s" }} />
         </div>
@@ -447,9 +459,9 @@ function App() {
               <Button
                 onClick={toggleLanguage}
                 size="icon"
-                className={`w-12 h-12 rounded-full shadow-lg transition-all hover:scale-110 ${isDark ? 'bg-secondary/80 hover:bg-secondary border border-border/50' : 'bg-white hover:bg-gray-100 border border-gray-200'}`}
+                className={`w-12 h-12 rounded-full shadow-lg transition-all hover:scale-110 ${isDark ? 'bg-secondary/80 hover:bg-secondary border border-border/50' : `${lightCard} hover:bg-[oklch(0.95_0.005_260)] ${lightBorder} shadow-[oklch(0.88_0.01_260)]/50`}`}
               >
-                <Translate size={22} weight="duotone" className={isDark ? 'text-accent' : 'text-[oklch(0.65_0.2_250)]'} />
+                <Translate size={22} weight="duotone" className={isDark ? 'text-accent' : lightAccent} />
               </Button>
             </TooltipTrigger>
             <TooltipContent side="left">
@@ -462,12 +474,12 @@ function App() {
               <Button
                 onClick={toggleTheme}
                 size="icon"
-                className={`w-12 h-12 rounded-full shadow-lg transition-all hover:scale-110 ${isDark ? 'bg-secondary/80 hover:bg-secondary border border-border/50' : 'bg-white hover:bg-gray-100 border border-gray-200'}`}
+                className={`w-12 h-12 rounded-full shadow-lg transition-all hover:scale-110 ${isDark ? 'bg-secondary/80 hover:bg-secondary border border-border/50' : `${lightCard} hover:bg-[oklch(0.95_0.005_260)] ${lightBorder} shadow-[oklch(0.88_0.01_260)]/50`}`}
               >
                 {isDark ? (
                   <Sun size={22} weight="duotone" className="text-yellow-400" />
                 ) : (
-                  <Moon size={22} weight="duotone" className="text-[oklch(0.45_0.15_270)]" />
+                  <Moon size={22} weight="duotone" className={lightPrimary} />
                 )}
               </Button>
             </TooltipTrigger>
@@ -481,9 +493,9 @@ function App() {
               <Button
                 onClick={handleDownloadCV}
                 size="icon"
-                className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-accent hover:from-primary/90 hover:to-accent/90 shadow-lg shadow-primary/25 transition-all hover:scale-110"
+                className={`w-14 h-14 rounded-full shadow-lg transition-all hover:scale-110 ${isDark ? 'bg-gradient-to-br from-primary to-accent hover:from-primary/90 hover:to-accent/90 shadow-primary/25' : 'bg-gradient-to-br from-[oklch(0.45_0.18_260)] to-[oklch(0.42_0.12_170)] hover:from-[oklch(0.40_0.18_260)] hover:to-[oklch(0.38_0.12_170)] shadow-[oklch(0.45_0.18_260)]/30'}`}
               >
-                <DownloadSimple size={26} weight="bold" className="text-primary-foreground" />
+                <DownloadSimple size={26} weight="bold" className="text-white" />
               </Button>
             </TooltipTrigger>
             <TooltipContent side="left">
@@ -508,26 +520,26 @@ function App() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.2 }}
                   >
-                    <Badge className={`font-mono text-xs ${isDark ? 'bg-primary/20 text-primary border-primary/30' : 'bg-[oklch(0.65_0.2_250)]/10 text-[oklch(0.65_0.2_250)] border-[oklch(0.65_0.2_250)]/30'}`}>
+                    <Badge className={`font-mono text-xs ${isDark ? 'bg-primary/20 text-primary border-primary/30' : 'bg-[oklch(0.45_0.18_260)]/10 text-[oklch(0.45_0.18_260)] border-[oklch(0.45_0.18_260)]/25'}`}>
                       &lt;/&gt; Systems Engineer
                     </Badge>
                   </motion.div>
                   
                   <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight">
-                    <span className={isDark ? 'bg-gradient-to-r from-foreground via-foreground to-muted-foreground bg-clip-text' : 'text-[oklch(0.2_0.03_270)]'}>
+                    <span className={isDark ? 'bg-gradient-to-r from-foreground via-foreground to-muted-foreground bg-clip-text' : lightText}>
                       Álvaro Becker
                     </span>
                     <br />
-                    <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-gradient">
+                    <span className={isDark ? 'bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-gradient' : 'bg-gradient-to-r from-[oklch(0.45_0.18_260)] via-[oklch(0.42_0.12_170)] to-[oklch(0.45_0.18_260)] bg-clip-text text-transparent animate-gradient'}>
                       Ruiz
                     </span>
                   </h1>
                   
-                  <p className={`text-lg sm:text-xl max-w-2xl leading-relaxed ${isDark ? 'text-muted-foreground' : 'text-[oklch(0.4_0.02_270)]'}`}>
+                  <p className={`text-lg sm:text-xl max-w-2xl leading-relaxed ${isDark ? 'text-muted-foreground' : lightMuted}`}>
                     {t.intro}{" "}
-                    <span className={isDark ? 'text-accent' : 'text-[oklch(0.55_0.15_180)]'}>{t.backend}</span>,{" "}
-                    <span className={isDark ? 'text-primary' : 'text-[oklch(0.55_0.2_250)]'}>{t.dataProcessing}</span> {lang === "es" ? "y" : "and"}{" "}
-                    <span className={isDark ? 'text-accent' : 'text-[oklch(0.55_0.15_180)]'}>{t.automation}</span>. 
+                    <span className={isDark ? 'text-accent' : lightAccent}>{t.backend}</span>,{" "}
+                    <span className={isDark ? 'text-primary' : lightPrimary}>{t.dataProcessing}</span> {lang === "es" ? "y" : "and"}{" "}
+                    <span className={isDark ? 'text-accent' : lightAccent}>{t.automation}</span>. 
                     {t.passion}
                   </p>
                 </div>
@@ -540,21 +552,21 @@ function App() {
                 >
                   <a 
                     href="mailto:alvarobeckerruiz@gmail.com"
-                    className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border transition-all text-sm group ${isDark ? 'bg-secondary/50 border-border hover:border-primary/50 hover:bg-primary/10' : 'bg-white border-gray-200 hover:border-[oklch(0.65_0.2_250)]/50 hover:bg-[oklch(0.65_0.2_250)]/5'}`}
+                    className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border transition-all text-sm group ${isDark ? 'bg-secondary/50 border-border hover:border-primary/50 hover:bg-primary/10' : `${lightCard} ${lightBorder} hover:border-[oklch(0.45_0.18_260)]/40 hover:bg-[oklch(0.45_0.18_260)]/5`}`}
                   >
-                    <Envelope size={16} weight="duotone" className={isDark ? 'text-primary' : 'text-[oklch(0.65_0.2_250)]'} />
-                    <span className={`group-hover:text-foreground transition-colors ${isDark ? 'text-muted-foreground' : 'text-[oklch(0.4_0.02_270)]'}`}>alvarobeckerruiz@gmail.com</span>
+                    <Envelope size={16} weight="duotone" className={isDark ? 'text-primary' : lightPrimary} />
+                    <span className={`group-hover:text-foreground transition-colors ${isDark ? 'text-muted-foreground' : lightMuted}`}>alvarobeckerruiz@gmail.com</span>
                   </a>
                   <a 
                     href="tel:+56963576927"
-                    className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border transition-all text-sm group ${isDark ? 'bg-secondary/50 border-border hover:border-primary/50 hover:bg-primary/10' : 'bg-white border-gray-200 hover:border-[oklch(0.65_0.2_250)]/50 hover:bg-[oklch(0.65_0.2_250)]/5'}`}
+                    className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border transition-all text-sm group ${isDark ? 'bg-secondary/50 border-border hover:border-primary/50 hover:bg-primary/10' : `${lightCard} ${lightBorder} hover:border-[oklch(0.45_0.18_260)]/40 hover:bg-[oklch(0.45_0.18_260)]/5`}`}
                   >
-                    <Phone size={16} weight="duotone" className={isDark ? 'text-primary' : 'text-[oklch(0.65_0.2_250)]'} />
-                    <span className={`group-hover:text-foreground transition-colors ${isDark ? 'text-muted-foreground' : 'text-[oklch(0.4_0.02_270)]'}`}>+56 9 6357 6927</span>
+                    <Phone size={16} weight="duotone" className={isDark ? 'text-primary' : lightPrimary} />
+                    <span className={`group-hover:text-foreground transition-colors ${isDark ? 'text-muted-foreground' : lightMuted}`}>+56 9 6357 6927</span>
                   </a>
-                  <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border text-sm ${isDark ? 'bg-secondary/50 border-border' : 'bg-white border-gray-200'}`}>
-                    <MapPin size={16} weight="duotone" className={isDark ? 'text-accent' : 'text-[oklch(0.55_0.15_180)]'} />
-                    <span className={isDark ? 'text-muted-foreground' : 'text-[oklch(0.4_0.02_270)]'}>Santiago, Chile</span>
+                  <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border text-sm ${isDark ? 'bg-secondary/50 border-border' : `${lightCard} ${lightBorder}`}`}>
+                    <MapPin size={16} weight="duotone" className={isDark ? 'text-accent' : lightAccent} />
+                    <span className={isDark ? 'text-muted-foreground' : lightMuted}>Santiago, Chile</span>
                   </div>
                 </motion.div>
 
@@ -568,24 +580,24 @@ function App() {
                     href="https://www.linkedin.com/in/aibecker/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`p-3 rounded-xl border transition-all hover:scale-110 ${isDark ? 'bg-secondary/50 border-border hover:border-primary hover:bg-primary/10' : 'bg-white border-gray-200 hover:border-[oklch(0.65_0.2_250)] hover:bg-[oklch(0.65_0.2_250)]/10'}`}
+                    className={`p-3 rounded-xl border transition-all hover:scale-110 ${isDark ? 'bg-secondary/50 border-border hover:border-primary hover:bg-primary/10' : `${lightCard} ${lightBorder} hover:border-[oklch(0.45_0.18_260)] hover:bg-[oklch(0.45_0.18_260)]/8`}`}
                   >
-                    <LinkedinLogo size={24} weight="duotone" className={isDark ? 'text-primary' : 'text-[oklch(0.65_0.2_250)]'} />
+                    <LinkedinLogo size={24} weight="duotone" className={isDark ? 'text-primary' : lightPrimary} />
                   </a>
                   <a 
                     href="https://github.com/AlvaroBecker"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`p-3 rounded-xl border transition-all hover:scale-110 ${isDark ? 'bg-secondary/50 border-border hover:border-accent hover:bg-accent/10' : 'bg-white border-gray-200 hover:border-[oklch(0.55_0.15_180)] hover:bg-[oklch(0.55_0.15_180)]/10'}`}
+                    className={`p-3 rounded-xl border transition-all hover:scale-110 ${isDark ? 'bg-secondary/50 border-border hover:border-accent hover:bg-accent/10' : `${lightCard} ${lightBorder} hover:border-[oklch(0.42_0.12_170)] hover:bg-[oklch(0.42_0.12_170)]/8`}`}
                   >
-                    <GithubLogo size={24} weight="duotone" className={isDark ? 'text-accent' : 'text-[oklch(0.55_0.15_180)]'} />
+                    <GithubLogo size={24} weight="duotone" className={isDark ? 'text-accent' : lightAccent} />
                   </a>
                 </motion.div>
               </motion.div>
             </div>
           </header>
 
-          <Separator className={`max-w-4xl mx-auto ${isDark ? 'bg-gradient-to-r from-transparent via-border to-transparent' : 'bg-gradient-to-r from-transparent via-gray-200 to-transparent'}`} />
+          <Separator className={`max-w-4xl mx-auto ${isDark ? 'bg-gradient-to-r from-transparent via-border to-transparent' : 'bg-gradient-to-r from-transparent via-[oklch(0.88_0.01_260)] to-transparent'}`} />
 
           <section className="py-16">
             <div className="max-w-4xl mx-auto px-6">
@@ -597,27 +609,27 @@ function App() {
                 className="space-y-8"
               >
                 <motion.div variants={fadeInUp} className="flex items-center gap-3">
-                  <Code size={28} weight="duotone" className={isDark ? 'text-primary' : 'text-[oklch(0.65_0.2_250)]'} />
+                  <Code size={28} weight="duotone" className={isDark ? 'text-primary' : lightPrimary} />
                   <h2 className="text-2xl sm:text-3xl font-bold">{t.technicalProfile}</h2>
                 </motion.div>
 
                 <div className="grid md:grid-cols-2 gap-6">
-                  <SkillCategory title={t.languages} icon={Code} skills={technicalSkills.languages} />
-                  <SkillCategory title={t.databases} icon={Database} skills={technicalSkills.databases} />
-                  <SkillCategory title={t.frameworks} icon={Wrench} skills={technicalSkills.frameworks} />
-                  <SkillCategory title={t.cloud} icon={Cloud} skills={technicalSkills.cloud} />
-                  <SkillCategory title={t.tools} icon={Terminal} skills={technicalSkills.tools} />
-                  <SkillCategory title={t.aiMl} icon={Brain} skills={technicalSkills.ai} />
+                  <SkillCategory title={t.languages} icon={Code} skills={technicalSkills.languages} isDark={isDark} />
+                  <SkillCategory title={t.databases} icon={Database} skills={technicalSkills.databases} isDark={isDark} />
+                  <SkillCategory title={t.frameworks} icon={Wrench} skills={technicalSkills.frameworks} isDark={isDark} />
+                  <SkillCategory title={t.cloud} icon={Cloud} skills={technicalSkills.cloud} isDark={isDark} />
+                  <SkillCategory title={t.tools} icon={Terminal} skills={technicalSkills.tools} isDark={isDark} />
+                  <SkillCategory title={t.aiMl} icon={Brain} skills={technicalSkills.ai} isDark={isDark} />
                 </div>
 
                 <motion.div variants={fadeInUp}>
-                  <SkillCategory title={t.scripting} icon={Terminal} skills={technicalSkills.scripting} />
+                  <SkillCategory title={t.scripting} icon={Terminal} skills={technicalSkills.scripting} isDark={isDark} />
                 </motion.div>
               </motion.div>
             </div>
           </section>
 
-          <Separator className={`max-w-4xl mx-auto ${isDark ? 'bg-gradient-to-r from-transparent via-border to-transparent' : 'bg-gradient-to-r from-transparent via-gray-200 to-transparent'}`} />
+          <Separator className={`max-w-4xl mx-auto ${isDark ? 'bg-gradient-to-r from-transparent via-border to-transparent' : 'bg-gradient-to-r from-transparent via-[oklch(0.88_0.01_260)] to-transparent'}`} />
 
           <section className="py-16">
             <div className="max-w-4xl mx-auto px-6">
@@ -629,14 +641,14 @@ function App() {
                 className="space-y-8"
               >
                 <motion.div variants={fadeInUp} className="flex items-center gap-3">
-                  <Brain size={28} weight="duotone" className={isDark ? 'text-accent' : 'text-[oklch(0.55_0.15_180)]'} />
+                  <Brain size={28} weight="duotone" className={isDark ? 'text-accent' : lightAccent} />
                   <h2 className="text-2xl sm:text-3xl font-bold">{t.competencies}</h2>
                 </motion.div>
 
                 <div className="grid sm:grid-cols-2 gap-6">
                   {competencyLevels.map((skill) => (
                     <motion.div key={skill.name} variants={fadeInUp}>
-                      <SkillBar name={skill.name} level={skill.level} lang={lang} />
+                      <SkillBar name={skill.name} level={skill.level} lang={lang} isDark={isDark} />
                     </motion.div>
                   ))}
                 </div>
@@ -644,7 +656,7 @@ function App() {
             </div>
           </section>
 
-          <Separator className={`max-w-4xl mx-auto ${isDark ? 'bg-gradient-to-r from-transparent via-border to-transparent' : 'bg-gradient-to-r from-transparent via-gray-200 to-transparent'}`} />
+          <Separator className={`max-w-4xl mx-auto ${isDark ? 'bg-gradient-to-r from-transparent via-border to-transparent' : 'bg-gradient-to-r from-transparent via-[oklch(0.88_0.01_260)] to-transparent'}`} />
 
           <section className="py-16">
             <div className="max-w-4xl mx-auto px-6">
@@ -656,20 +668,20 @@ function App() {
                 className="space-y-8"
               >
                 <motion.div variants={fadeInUp} className="flex items-center gap-3">
-                  <Briefcase size={28} weight="duotone" className={isDark ? 'text-primary' : 'text-[oklch(0.65_0.2_250)]'} />
+                  <Briefcase size={28} weight="duotone" className={isDark ? 'text-primary' : lightPrimary} />
                   <h2 className="text-2xl sm:text-3xl font-bold">{t.workExperience}</h2>
                 </motion.div>
 
                 <div>
                   {workHistory.map((job, idx) => (
-                    <TimelineItem key={idx} {...job} />
+                    <TimelineItem key={idx} {...job} isDark={isDark} />
                   ))}
                 </div>
               </motion.div>
             </div>
           </section>
 
-          <Separator className={`max-w-4xl mx-auto ${isDark ? 'bg-gradient-to-r from-transparent via-border to-transparent' : 'bg-gradient-to-r from-transparent via-gray-200 to-transparent'}`} />
+          <Separator className={`max-w-4xl mx-auto ${isDark ? 'bg-gradient-to-r from-transparent via-border to-transparent' : 'bg-gradient-to-r from-transparent via-[oklch(0.88_0.01_260)] to-transparent'}`} />
 
           <section className="py-16">
             <div className="max-w-4xl mx-auto px-6">
@@ -681,26 +693,26 @@ function App() {
                 className="space-y-8"
               >
                 <motion.div variants={fadeInUp} className="flex items-center gap-3">
-                  <GraduationCap size={28} weight="duotone" className={isDark ? 'text-accent' : 'text-[oklch(0.55_0.15_180)]'} />
+                  <GraduationCap size={28} weight="duotone" className={isDark ? 'text-accent' : lightAccent} />
                   <h2 className="text-2xl sm:text-3xl font-bold">{t.education}</h2>
                 </motion.div>
 
                 <motion.div variants={fadeInUp}>
-                  <Card className={`transition-colors ${isDark ? 'bg-card/50 border-border/50 hover:border-accent/30' : 'bg-white border-gray-200 hover:border-[oklch(0.55_0.15_180)]/30'}`}>
+                  <Card className={`transition-colors ${isDark ? 'bg-card/50 border-border/50 hover:border-accent/30' : `${lightCard} ${lightBorder} hover:border-[oklch(0.42_0.12_170)]/40`}`}>
                     <CardContent className="p-6">
                       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
                         <div>
                           <h4 className="font-semibold text-lg">
                             {t.degree}
                           </h4>
-                          <p className={isDark ? 'text-accent font-medium' : 'text-[oklch(0.55_0.15_180)] font-medium'}>
+                          <p className={isDark ? 'text-accent font-medium' : `${lightAccent} font-medium`}>
                             {t.degreeSpecialization}
                           </p>
-                          <p className={isDark ? 'text-muted-foreground' : 'text-[oklch(0.4_0.02_270)]'}>
+                          <p className={isDark ? 'text-muted-foreground' : lightMuted}>
                             {t.institution}
                           </p>
                         </div>
-                        <Badge variant="outline" className={`font-mono text-xs w-fit shrink-0 ${isDark ? 'border-accent/30 text-accent' : 'border-[oklch(0.55_0.15_180)]/30 text-[oklch(0.55_0.15_180)]'}`}>
+                        <Badge variant="outline" className={`font-mono text-xs w-fit shrink-0 ${isDark ? 'border-accent/30 text-accent' : 'border-[oklch(0.42_0.12_170)]/30 text-[oklch(0.42_0.12_170)]'}`}>
                           Mar 2019 - Nov 2022
                         </Badge>
                       </div>
@@ -711,7 +723,7 @@ function App() {
             </div>
           </section>
 
-          <Separator className={`max-w-4xl mx-auto ${isDark ? 'bg-gradient-to-r from-transparent via-border to-transparent' : 'bg-gradient-to-r from-transparent via-gray-200 to-transparent'}`} />
+          <Separator className={`max-w-4xl mx-auto ${isDark ? 'bg-gradient-to-r from-transparent via-border to-transparent' : 'bg-gradient-to-r from-transparent via-[oklch(0.88_0.01_260)] to-transparent'}`} />
 
           <section className="py-16">
             <div className="max-w-4xl mx-auto px-6">
@@ -723,16 +735,16 @@ function App() {
                 className="space-y-8"
               >
                 <motion.div variants={fadeInUp} className="flex items-center gap-3">
-                  <Certificate size={28} weight="duotone" className={isDark ? 'text-primary' : 'text-[oklch(0.65_0.2_250)]'} />
+                  <Certificate size={28} weight="duotone" className={isDark ? 'text-primary' : lightPrimary} />
                   <h2 className="text-2xl sm:text-3xl font-bold">{t.certifications}</h2>
                 </motion.div>
 
                 <div className="grid sm:grid-cols-2 gap-4">
                   {certifications.map((cert, idx) => (
                     <motion.div key={idx} variants={fadeInUp}>
-                      <Card className={`transition-all group h-full ${isDark ? 'bg-card/30 border-border/50 hover:border-primary/30' : 'bg-white border-gray-200 hover:border-[oklch(0.65_0.2_250)]/30'}`}>
+                      <Card className={`transition-all group h-full ${isDark ? 'bg-card/30 border-border/50 hover:border-primary/30' : `${lightCard} ${lightBorder} hover:border-[oklch(0.45_0.18_260)]/40`}`}>
                         <CardContent className="p-4 flex items-start gap-4">
-                          <div className={`shrink-0 w-12 h-12 rounded-lg flex items-center justify-center font-mono font-bold text-sm transition-colors ${isDark ? 'bg-gradient-to-br from-primary/20 to-accent/20 text-primary group-hover:from-primary/30 group-hover:to-accent/30' : 'bg-gradient-to-br from-[oklch(0.65_0.2_250)]/10 to-[oklch(0.55_0.15_180)]/10 text-[oklch(0.65_0.2_250)] group-hover:from-[oklch(0.65_0.2_250)]/20 group-hover:to-[oklch(0.55_0.15_180)]/20'}`}>
+                          <div className={`shrink-0 w-12 h-12 rounded-lg flex items-center justify-center font-mono font-bold text-sm transition-colors ${isDark ? 'bg-gradient-to-br from-primary/20 to-accent/20 text-primary group-hover:from-primary/30 group-hover:to-accent/30' : 'bg-gradient-to-br from-[oklch(0.45_0.18_260)]/10 to-[oklch(0.42_0.12_170)]/10 text-[oklch(0.45_0.18_260)] group-hover:from-[oklch(0.45_0.18_260)]/15 group-hover:to-[oklch(0.42_0.12_170)]/15'}`}>
                             {cert.year}
                           </div>
                           <div className="min-w-0">
@@ -740,7 +752,7 @@ function App() {
                               {cert.name}
                             </h4>
                             {cert.issuer && (
-                              <p className={`text-sm mt-1 ${isDark ? 'text-muted-foreground' : 'text-[oklch(0.4_0.02_270)]'}`}>{cert.issuer}</p>
+                              <p className={`text-sm mt-1 ${isDark ? 'text-muted-foreground' : lightMuted}`}>{cert.issuer}</p>
                             )}
                           </div>
                         </CardContent>
@@ -752,14 +764,14 @@ function App() {
             </div>
           </section>
 
-          <footer className={`py-12 border-t ${isDark ? 'border-border/50' : 'border-gray-200'}`}>
+          <footer className={`py-12 border-t ${isDark ? 'border-border/50' : 'border-[oklch(0.88_0.01_260)]'}`}>
             <div className="max-w-4xl mx-auto px-6">
-              <div className={`flex flex-col sm:flex-row items-center justify-between gap-4 text-sm ${isDark ? 'text-muted-foreground' : 'text-[oklch(0.4_0.02_270)]'}`}>
+              <div className={`flex flex-col sm:flex-row items-center justify-between gap-4 text-sm ${isDark ? 'text-muted-foreground' : lightMuted}`}>
                 <p className="font-mono">© 2025 Álvaro Becker Ruiz</p>
                 <div className="flex items-center gap-4">
                   <a 
                     href="mailto:alvarobeckerruiz@gmail.com"
-                    className={`transition-colors ${isDark ? 'hover:text-primary' : 'hover:text-[oklch(0.65_0.2_250)]'}`}
+                    className={`transition-colors ${isDark ? 'hover:text-primary' : 'hover:text-[oklch(0.45_0.18_260)]'}`}
                   >
                     {t.contact}
                   </a>
@@ -767,7 +779,7 @@ function App() {
                     href="https://github.com/AlvaroBecker"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`transition-colors ${isDark ? 'hover:text-accent' : 'hover:text-[oklch(0.55_0.15_180)]'}`}
+                    className={`transition-colors ${isDark ? 'hover:text-accent' : 'hover:text-[oklch(0.42_0.12_170)]'}`}
                   >
                     GitHub
                   </a>
@@ -775,7 +787,7 @@ function App() {
                     href="https://www.linkedin.com/in/aibecker/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`transition-colors ${isDark ? 'hover:text-primary' : 'hover:text-[oklch(0.65_0.2_250)]'}`}
+                    className={`transition-colors ${isDark ? 'hover:text-primary' : 'hover:text-[oklch(0.45_0.18_260)]'}`}
                   >
                     LinkedIn
                   </a>
