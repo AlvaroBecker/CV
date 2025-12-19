@@ -542,7 +542,7 @@ function App() {
                   </h1>
                   
                   <p
-                    className={`text-lg sm:text-xl max-w-2xl leading-relaxed text-left sm:text-justify [text-justify:inter-word] ${isDark ? 'text-muted-foreground' : lightMuted}`}
+                    className={`text-lg sm:text-xl w-full leading-relaxed text-left sm:text-justify [text-justify:inter-word] ${isDark ? 'text-muted-foreground' : lightMuted}`}
                   >
                     {lang === "es" 
                       ? "Ingeniero en Informática con enfoque integral en desarrollo de software, abarcando backend, gestión de datos y experiencia de usuario dentro de arquitecturas modernas. He llevado adelante proyectos personales end-to-end, priorizando eficiencia y calidad técnica. Interesado en metodologías actuales y programación asistida por IA para mejorar procesos. Busco profundizar en tecnologías emergentes como modelos de lenguaje natural, computación cuántica y sistemas avanzados de visualización, impulsando mi crecimiento y aprendizaje continuo."
