@@ -1,251 +1,38 @@
-/* Estilos para impresión y exportación a PDF */
+/* Configuración de estilos para diferentes tamaños de hoja */
 
-@media print {
-  /* Configuración general de página */
-  @page {
-    size: A4;
-    margin: 1.5cm 1.5cm 1.5cm 1.5cm;
-  }
-
-  * {
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-    color-adjust: exact !important;
-  }
-
-  /* Ocultar elementos que no deben imprimirse */
-  .print\:hidden {
-    display: none !important;
-  }
-
-  /* Resetear el fondo para impresión */
-  body {
-    background: white !important;
-  }
-
-  /* Contenedor principal */
-  .min-h-screen {
-    min-height: auto !important;
-  }
-
-  /* Ocultar efectos de fondo animados */
-  .fixed.inset-0.pointer-events-none {
-    display: none !important;
-  }
-
-  /* Eliminar animaciones y transiciones */
-  * {
-    animation: none !important;
-    transition: none !important;
-  }
-
-  /* Ajustar encabezado */
-  header {
-    padding-top: 1rem !important;
-    padding-bottom: 1rem !important;
-    page-break-after: avoid;
-  }
-
-  /* Títulos principales */
-  h1 {
-    font-size: 2rem !important;
-    page-break-after: avoid;
-  }
-
-  h2 {
-    font-size: 1.5rem !important;
-    page-break-after: avoid;
-    margin-top: 1rem !important;
-  }
-
-  h3 {
-    font-size: 1.25rem !important;
-    page-break-after: avoid;
-  }
-
-  h4 {
-    page-break-after: avoid;
-  }
-
-  /* Párrafos y textos */
-  p {
-    orphans: 3;
-    widows: 3;
-  }
-
-  /* Secciones */
-  section {
-    padding-top: 1.5rem !important;
-    padding-bottom: 1.5rem !important;
-    page-break-inside: avoid;
-  }
-
-  /* Cards - evitar que se corten */
-  .card, [class*="Card"] {
-    page-break-inside: avoid;
-    break-inside: avoid;
-  }
-
-  /* Items de timeline */
-  .timeline-item, [class*="TimelineItem"] {
-    page-break-inside: avoid;
-    break-inside: avoid;
-    margin-bottom: 0.75rem !important;
-  }
-
-  /* Separadores */
-  [class*="Separator"] {
-    page-break-after: avoid;
-    margin-top: 0.5rem !important;
-    margin-bottom: 0.5rem !important;
-  }
-
-  /* Badges y skills */
-  .badge, [class*="Badge"] {
-    page-break-inside: avoid;
-  }
-
-  /* Grids - ajustar para impresión */
-  .grid {
-    page-break-inside: auto;
-  }
-
-  /* Skill bars */
-  .skill-bar, [class*="SkillBar"] {
-    page-break-inside: avoid;
-    break-inside: avoid;
-  }
-
-  /* Certificaciones */
-  .certifications .grid {
-    gap: 0.5rem !important;
-  }
-
-  /* Footer */
-  footer {
-    page-break-before: avoid;
-    padding-top: 1rem !important;
-    padding-bottom: 1rem !important;
-  }
-
-  /* Links - mostrar URLs en impresión */
-  a[href^="http"]:not([href*="linkedin"]):not([href*="github"])::after {
-    content: " (" attr(href) ")";
-    font-size: 0.75rem;
-    color: #666;
-  }
-
-  /* Ajustar márgenes generales */
-  .max-w-4xl {
-    max-width: 100% !important;
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
-  }
-
-  /* Evitar saltos de página en listas */
-  ul, ol {
-    page-break-inside: avoid;
-  }
-
-  li {
-    page-break-inside: avoid;
-  }
-
-  /* Ajustar espacios en experiencia laboral */
-  .space-y-8 {
-    gap: 0.75rem !important;
-  }
-
-  .space-y-6 {
-    gap: 0.5rem !important;
-  }
-
-  .space-y-3 {
-    gap: 0.25rem !important;
-  }
-
-  /* Reducir padding en cards para PDF */
-  [class*="CardContent"] {
-    padding: 0.75rem !important;
-  }
-
-  /* Ajustar iconos */
-  svg {
-    width: 1rem !important;
-    height: 1rem !important;
-  }
-
-  /* Contacto y redes sociales en header */
-  header .flex.flex-wrap {
-    gap: 0.5rem !important;
-  }
-
-  /* Asegurar que el contenido no se desborde */
-  * {
-    max-width: 100%;
-    overflow: visible !important;
-  }
-
-  /* Ajustar tamaño de fuente global */
-  html {
-    font-size: 12pt;
-  }
-
-  /* Evitar que el gradiente de texto cause problemas */
-  .bg-clip-text,
-  .text-transparent {
-    -webkit-background-clip: text !important;
-    background-clip: text !important;
-  }
-
-  /* Forzar colores oscuros para mejor contraste en impresión */
-  .text-muted-foreground {
-    color: #666 !important;
-  }
-
-  .text-foreground {
-    color: #000 !important;
-  }
-
-  /* Bordes visibles */
-  [class*="border"] {
-    border-color: #e5e5e5 !important;
-  }
-
-  /* Reducir altura de header para ahorrar espacio */
-  header {
-    min-height: auto !important;
-  }
-
-  /* Compactar la información de contacto */
-  .inline-flex.items-center.gap-2 {
-    gap: 0.25rem !important;
-    padding: 0.25rem 0.5rem !important;
-    font-size: 0.75rem !important;
-  }
-
-  /* Ajustar las barras de habilidades para impresión */
-  .h-2 {
-    height: 0.5rem !important;
-  }
-
-  /* Evitar que los botones flotantes aparezcan */
-  .fixed.bottom-6.right-6 {
-    display: none !important;
-  }
-
-  /* Asegurar visibilidad de gradientes */
-  .bg-gradient-to-r,
-  .bg-gradient-to-br,
-  .bg-gradient-to-bl {
-    background: linear-gradient(to right, #6366f1, #8b5cf6) !important;
-  }
+/* Por defecto: A4 (210mm x 297mm) */
+@media print and (size: A4) {
+    body {
+        margin: 20mm;
+        padding: 0;
+        /* Otros estilos específicos para A4 */
+    }
 }
 
-/* Estilos específicos para pantalla que ayudan con la exportación */
-@media screen {
-  /* Clase helper para elementos que solo deben verse en pantalla */
-  .screen-only {
-    display: block;
-  }
+/* Configuración para Letter (8.5in x 11in) */
+@media print and (size: Letter) {
+    body {
+        margin: 0.5in;
+        padding: 0;
+        /* Otros estilos específicos para Letter */
+    }
+}
+
+/* Configuración para Legal (8.5in x 14in) */
+@media print and (size: Legal) {
+    body {
+        margin: 0.5in;
+        padding: 0;
+        /* Otros estilos específicos para Legal */
+    }
+}
+
+/* Ajustes específicos de márgenes y espaciado para cada tamaño */
+/* Cada @media incluye configuraciones diferentes según el tamaño deseado */
+
+/* Media queries para detectar el tamaño de página */
+@media print {
+    @page {
+        /* Establecer tamaño de página predeterminado aquí si es necesario */
+    }
 }
