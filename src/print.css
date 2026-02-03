@@ -70,13 +70,7 @@
      COLORES OPTIMIZADOS PARA LEGIBILIDAD AI
      ============================================ */
 
-  /* Forzar fondo blanco y texto negro en todos los elementos */
-  *:not(svg):not(path) {
-    background: transparent !important;
-    color: #000000 !important;
-  }
-
-  /* Fondo de página y contenedor principal */
+  /* Fondo de página y contenedor principal - DEBE IR PRIMERO */
   html,
   body,
   #root,
@@ -84,6 +78,18 @@
   .dark,
   body.dark {
     background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  /* Forzar texto negro en todos los elementos de texto */
+  *:not(svg):not(path) {
+    color: #000000 !important;
+  }
+
+  /* Forzar texto negro en todos los elementos de encabezado y texto */
+  h1, h2, h3, h4, h5, h6,
+  p, span, div, a, li, td, th,
+  label, button, input, textarea {
     color: #000000 !important;
   }
 
@@ -96,6 +102,22 @@
     color: #000000 !important;
     border: 1px solid #e0e0e0 !important;
     box-shadow: none !important;
+  }
+
+  /* Asegurar que todos los contenedores principales tengan fondo blanco */
+  section,
+  header,
+  footer,
+  main,
+  article,
+  div {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  /* Forzar fondo blanco en contenedores flex y grid */
+  .flex, .grid, .inline-flex {
+    background: #ffffff !important;
   }
 
   /* Texto de todos los elementos */
