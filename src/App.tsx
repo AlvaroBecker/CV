@@ -248,18 +248,22 @@ const workHistoryData = {
 
 const certificationsData = {
   es: [
+    { year: "2025", name: "Complete Prompt Engineering, ChatGPT & AI Bootcamp", issuer: "Udemy" },
+    { year: "2025", name: "Master IA Generativa. Crea tu propio ChatGPT en Azure OpenAI", issuer: "Udemy" },
     { year: "2025", name: "Oracle Cloud Infrastructure AI Foundations", issuer: "Oracle" },
     { year: "2025", name: "Deep Learning con Python y Keras - Redes Neuronales", issuer: "Udemy" },
-    { year: "2025", name: "Máster en NLP con Python", issuer: "Udemy" },
+    { year: "2025", name: "Máster en Procesamiento de Lenguaje Natural (NLP) con Python", issuer: "Udemy" },
     { year: "2023", name: "Certificado en Ciencia de Datos", issuer: "Coding Dojo" },
     { year: "2023", name: "Certificado de Inglés C1", issuer: "" },
     { year: "2022", name: "Google Cloud Professional Architect", issuer: "Udemy" },
     { year: "2022", name: "Certificado de Python", issuer: "Udemy" },
   ],
   en: [
+    { year: "2025", name: "Complete Prompt Engineering, ChatGPT & AI Bootcamp", issuer: "Udemy" },
+    { year: "2025", name: "Generative AI Master. Create your own ChatGPT in Azure OpenAI", issuer: "Udemy" },
     { year: "2025", name: "Oracle Cloud Infrastructure AI Foundations", issuer: "Oracle" },
     { year: "2025", name: "Deep Learning with Python and Keras - Neural Networks", issuer: "Udemy" },
-    { year: "2025", name: "NLP Master with Python", issuer: "Udemy" },
+    { year: "2025", name: "Master in Natural Language Processing (NLP) with Python", issuer: "Udemy" },
     { year: "2023", name: "Data Science Certificate", issuer: "Coding Dojo" },
     { year: "2023", name: "C1 English Certificate", issuer: "" },
     { year: "2022", name: "Google Cloud Professional Architect", issuer: "Udemy" },
@@ -269,34 +273,34 @@ const certificationsData = {
 
 const competencyLabels = {
   es: [
-    { name: "Data Analysis", level: 75 },
-    { name: "Machine Learning", level: 75 },
-    { name: "Data Science", level: 75 },
-    { name: "Desarrollo de Software", level: 85 },
-    { name: "Cloud Computing", level: 45 },
-    { name: "Ingeniería de Prompt", level: 80 },
-    { name: "Trabajo en Equipo", level: 70 },
-    { name: "Resolución de Problemas", level: 75 },
-    { name: "GitHub Copilot", level: 65 },
-    { name: "ChatGPT", level: 65 },
-    { name: "Midjourney", level: 65 },
-    { name: "GitHub Spark", level: 65 },
-    { name: "Gemini", level: 65 },
+    { id: "data-analysis", name: "Data Analysis", level: 75 },
+    { id: "machine-learning", name: "Machine Learning", level: 75 },
+    { id: "data-science", name: "Data Science", level: 75 },
+    { id: "software-development", name: "Desarrollo de Software", level: 85 },
+    { id: "cloud-computing", name: "Cloud Computing", level: 45 },
+    { id: "prompt-engineering", name: "Ingeniería de Prompt", level: 80 },
+    { id: "teamwork", name: "Trabajo en Equipo", level: 70 },
+    { id: "problem-solving", name: "Resolución de Problemas", level: 75 },
+    { id: "github-copilot", name: "GitHub Copilot", level: 65 },
+    { id: "chatgpt", name: "ChatGPT", level: 65 },
+    { id: "midjourney", name: "Midjourney", level: 65 },
+    { id: "github-spark", name: "GitHub Spark", level: 65 },
+    { id: "gemini", name: "Gemini", level: 65 },
   ],
   en: [
-    { name: "Data Analysis", level: 75 },
-    { name: "Machine Learning", level: 75 },
-    { name: "Data Science", level: 75 },
-    { name: "Software Development", level: 85 },
-    { name: "Cloud Computing", level: 45 },
-    { name: "Prompt Engineering", level: 80 },
-    { name: "Teamwork", level: 70 },
-    { name: "Problem Solving", level: 75 },
-    { name: "GitHub Copilot", level: 65 },
-    { name: "ChatGPT", level: 65 },
-    { name: "Midjourney", level: 65 },
-    { name: "GitHub Spark", level: 65 },
-    { name: "Gemini", level: 65 },
+    { id: "data-analysis", name: "Data Analysis", level: 75 },
+    { id: "machine-learning", name: "Machine Learning", level: 75 },
+    { id: "data-science", name: "Data Science", level: 75 },
+    { id: "software-development", name: "Software Development", level: 85 },
+    { id: "cloud-computing", name: "Cloud Computing", level: 45 },
+    { id: "prompt-engineering", name: "Prompt Engineering", level: 80 },
+    { id: "teamwork", name: "Teamwork", level: 70 },
+    { id: "problem-solving", name: "Problem Solving", level: 75 },
+    { id: "github-copilot", name: "GitHub Copilot", level: 65 },
+    { id: "chatgpt", name: "ChatGPT", level: 65 },
+    { id: "midjourney", name: "Midjourney", level: 65 },
+    { id: "github-spark", name: "GitHub Spark", level: 65 },
+    { id: "gemini", name: "Gemini", level: 65 },
   ]
 }
 
@@ -408,7 +412,13 @@ function App() {
   const t = translations[lang]
   const workHistory = workHistoryData[lang]
   const certifications = certificationsData[lang]
-  const competencyLevels = competencyLabels[lang]
+  const competencyLevels = (competencyLabels[lang] ?? []).filter(
+    (skill): skill is { id: string; name: string; level: number } =>
+      Boolean(skill) &&
+      typeof skill.id === "string" &&
+      typeof skill.name === "string" &&
+      typeof skill.level === "number"
+  )
 
   const technicalSkills = {
     languages: ["Python", "Java", "JavaScript", "TypeScript", "CoffeeScript", "PHP", "HTML", ".NET Framework", "Arcade"],
@@ -535,7 +545,9 @@ function App() {
                     </span>
                   </h1>
                   
-                  <p className={`text-lg sm:text-xl max-w-2xl leading-relaxed ${isDark ? 'text-muted-foreground' : lightMuted}`}>
+                  <p
+                    className={`text-lg sm:text-xl w-full leading-relaxed text-left sm:text-justify [text-justify:inter-word] ${isDark ? 'text-muted-foreground' : lightMuted}`}
+                  >
                     {lang === "es" 
                       ? "Ingeniero en Informática con enfoque integral en desarrollo de software, abarcando backend, gestión de datos y experiencia de usuario dentro de arquitecturas modernas. He llevado adelante proyectos personales end-to-end, priorizando eficiencia y calidad técnica. Interesado en metodologías actuales y programación asistida por IA para mejorar procesos. Busco profundizar en tecnologías emergentes como modelos de lenguaje natural, computación cuántica y sistemas avanzados de visualización, impulsando mi crecimiento y aprendizaje continuo."
                       : "Computer Engineer with a comprehensive approach to software development, encompassing backend, data management, and user experience within modern architectures. I have led personal end-to-end projects, prioritizing efficiency and technical quality. Interested in current methodologies and AI-assisted programming to improve processes. I seek to deepen my knowledge in emerging technologies such as natural language models, quantum computing, and advanced visualization systems, driving my continuous growth and learning."
@@ -646,7 +658,7 @@ function App() {
 
                 <div className="grid sm:grid-cols-2 gap-6">
                   {competencyLevels.map((skill) => (
-                    <motion.div key={skill.name} variants={fadeInUp}>
+                    <motion.div key={skill.id} variants={fadeInUp}>
                       <SkillBar name={skill.name} level={skill.level} lang={lang} isDark={isDark} />
                     </motion.div>
                   ))}

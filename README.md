@@ -1,23 +1,62 @@
-# ✨ Welcome to Your Spark Template!
-You've just launched your brand-new Spark Template Codespace — everything’s fired up and ready for you to explore, build, and create with Spark!
+# CV Digital - Álvaro Becker Ruiz
 
-This template is your blank canvas. It comes with a minimal setup to help you get started quickly with Spark development.
+Currículum vitae digital y portfolio profesional desarrollado con React, Vite y Tailwind CSS.
 
-🚀 What's Inside?
-- A clean, minimal Spark environment
-- Pre-configured for local development
-- Ready to scale with your ideas
-  
-🧠 What Can You Do?
+🌐 **Sitio web**: https://alvarobecker.github.io/CV/
 
-Right now, this is just a starting point — the perfect place to begin building and testing your Spark applications.
+## 🚀 Desarrollo Local
 
-🧹 Just Exploring?
-No problem! If you were just checking things out and don’t need to keep this code:
+### Requisitos previos
+- Node.js 20 o superior
+- npm
 
-- Simply delete your Spark.
-- Everything will be cleaned up — no traces left behind.
+### Instalación y ejecución
 
-📄 License For Spark Template Resources 
+```bash
+# Instalar dependencias
+npm install
+
+# Ejecutar servidor de desarrollo
+npm run dev
+
+# Compilar para producción
+npm run build
+```
+
+## 📦 Despliegue a GitHub Pages
+
+El sitio se despliega automáticamente a GitHub Pages cuando se hace push a la rama `main`.
+
+### Despliegue automático (Recomendado)
+
+1. Realiza cambios en tu código
+2. Haz commit y push a la rama `main`:
+   ```bash
+   git add .
+   git commit -m "Descripción de cambios"
+   git push origin main
+   ```
+3. GitHub Actions compilará y desplegará automáticamente el sitio a la rama `gh-pages`
+4. Los cambios estarán visibles en https://alvarobecker.github.io/CV/ en unos minutos
+
+### Despliegue manual
+
+Si prefieres desplegar manualmente:
+
+```bash
+npm run deploy
+```
+
+Este comando compilará el proyecto y subirá los archivos a la rama `gh-pages`.
+
+## 🔧 Tecnologías utilizadas
+
+- React 19
+- Vite 7
+- Tailwind CSS 4
+- TypeScript
+- GitHub Pages
+
+## 📄 Licencia
 
 The Spark Template files and resources from GitHub are licensed under the terms of the MIT license, Copyright GitHub, Inc.

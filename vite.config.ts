@@ -10,7 +10,7 @@ const projectRoot = process.env.PROJECT_ROOT || import.meta.dirname
 
 export default defineConfig({
   // IMPORTANT: project pages need a subpath base
-  base: '/AlvaroBecker-CV.github.io/',
+  base: '/CV/',
   plugins: [
     react(),
     tailwindcss(),
