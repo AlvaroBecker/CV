@@ -284,7 +284,7 @@
     margin-top: 0.1rem !important;
   }
 
-  .space-y-1\.5 > * + * {
+  .space-y-1.5 > * + * {
     margin-top: 0.08rem !important;
   }
 
@@ -399,6 +399,49 @@
   body:not(.dark) .bg-gradient-to-br,
   body:not(.dark) .bg-gradient-to-bl {
     background-image: linear-gradient(to right, oklch(0.45 0.18 260), oklch(0.42 0.12 170)) !important;
+  }
+
+  /* ============================================
+     PRINT FIXES - CONSERVAR ESTILO VISUAL
+     ============================================ */
+
+  html,
+  body {
+    background: #f6f7f9 !important;
+    color: #111111 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .card,
+  [class*="Card"] {
+    background: #ffffff !important;
+    color: #111111 !important;
+    border: 1px solid #d9dde3 !important;
+    box-shadow: none !important;
+  }
+
+  [class*="Badge"] {
+    background: #eef2f6 !important;
+    color: #111111 !important;
+    border-color: #cfd6df !important;
+  }
+
+  section {
+    padding-top: 0.35rem !important;
+    padding-bottom: 0.35rem !important;
+    page-break-inside: auto !important;
+    break-inside: auto !important;
+  }
+
+  section:last-of-type,
+  section:nth-last-of-type(2) {
+    page-break-inside: auto !important;
+    break-inside: auto !important;
+  }
+
+  .animate-pulse-glow {
+    opacity: 0.15 !important;
   }
 
   /* ============================================
