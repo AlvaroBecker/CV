@@ -248,18 +248,22 @@ const workHistoryData = {
 
 const certificationsData = {
   es: [
+    { year: "2025", name: "Complete Prompt Engineering, ChatGPT & AI Bootcamp", issuer: "Udemy" },
+    { year: "2025", name: "Master IA Generativa. Crea tu propio ChatGPT en Azure OpenAI", issuer: "Udemy" },
     { year: "2025", name: "Oracle Cloud Infrastructure AI Foundations", issuer: "Oracle" },
     { year: "2025", name: "Deep Learning con Python y Keras - Redes Neuronales", issuer: "Udemy" },
-    { year: "2025", name: "Máster en NLP con Python", issuer: "Udemy" },
+    { year: "2025", name: "Máster en Procesamiento de Lenguaje Natural (NLP) con Python", issuer: "Udemy" },
     { year: "2023", name: "Certificado en Ciencia de Datos", issuer: "Coding Dojo" },
     { year: "2023", name: "Certificado de Inglés C1", issuer: "" },
     { year: "2022", name: "Google Cloud Professional Architect", issuer: "Udemy" },
     { year: "2022", name: "Certificado de Python", issuer: "Udemy" },
   ],
   en: [
+    { year: "2025", name: "Complete Prompt Engineering, ChatGPT & AI Bootcamp", issuer: "Udemy" },
+    { year: "2025", name: "Generative AI Master. Create your own ChatGPT in Azure OpenAI", issuer: "Udemy" },
     { year: "2025", name: "Oracle Cloud Infrastructure AI Foundations", issuer: "Oracle" },
     { year: "2025", name: "Deep Learning with Python and Keras - Neural Networks", issuer: "Udemy" },
-    { year: "2025", name: "NLP Master with Python", issuer: "Udemy" },
+    { year: "2025", name: "Master in Natural Language Processing (NLP) with Python", issuer: "Udemy" },
     { year: "2023", name: "Data Science Certificate", issuer: "Coding Dojo" },
     { year: "2023", name: "C1 English Certificate", issuer: "" },
     { year: "2022", name: "Google Cloud Professional Architect", issuer: "Udemy" },
