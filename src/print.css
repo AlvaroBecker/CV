@@ -53,6 +53,15 @@
   *::after {
     animation: none !important;
     transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  /* Asegurar que elementos de Framer Motion sean visibles */
+  [style*="opacity"],
+  [style*="transform"] {
+    opacity: 1 !important;
+    transform: none !important;
   }
 
   /* Preservar sombras sutiles para mejor diseño */
