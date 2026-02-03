@@ -1,183 +1,204 @@
 /* ============================================
    ESTILOS PARA EXPORTACIÓN A PDF
-   Soporta múltiples tamaños de hoja
-   Soluciona problemas de fondo y colores
+   Preserva la estética exacta del modo oscuro y claro
+   ============================================ */
+
+/* ============================================
+   CONFIGURACIÓN GENERAL PARA IMPRESIÓN
    ============================================ */
 
 @media print {
-  /* ============================================
-     FORZAR FONDO BLANCO Y RESETEAR TEMA
-     ============================================ */
-  
-  body,
-  html,
-  #root,
-  .min-h-screen,
-  main,
-  div,
-  section,
-  header,
-  footer,
-  article,
-  aside {
-    background: white !important;
-    background-color: white !important;
-    background-image: none !important;
+  /* Variables de configuración para todos los tamaños */
+  :root {
+    --print-font-size: 9pt;
+    --print-line-height: 1.35;
+    --print-heading-scale: 1.2;
   }
 
-  /* Resetear variables CSS de tema para impresión */
-  :root,
-  .dark,
-  [data-theme="dark"],
-  [class*="dark"] {
-    --background: white !important;
-    --foreground: #000 !important;
-    --card: white !important;
-    --card-foreground: #000 !important;
-    --popover: white !important;
-    --popover-foreground: #000 !important;
-    --primary: #4f46e5 !important;
-    --primary-foreground: white !important;
-    --secondary: #f5f5f5 !important;
-    --secondary-foreground: #000 !important;
-    --muted: #f5f5f5 !important;
-    --muted-foreground: #555 !important;
-    --accent: #7c3aed !important;
-    --accent-foreground: white !important;
-    --border: #e0e0e0 !important;
-  }
-
-  /* Cards y componentes con fondo blanco */
-  [class*="Card"],
-  .card,
-  [class*="bg-"],
-  [class*="bg-card"],
-  [class*="bg-secondary"],
-  [class*="bg-background"],
-  [class*="bg-muted"] {
-    background: white !important;
-    background-color: white !important;
-    background-image: none !important;
-  }
-
-  /* ============================================
-     CONFIGURACIÓN DE COLOR PARA IMPRESIÓN
-     ============================================ */
-  
-  * {
+  /* IMPORTANTE: Preservar colores exactos */
+  *,
+  *::before,
+  *::after {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
   }
 
+  /* Resetear estilos base */
   html {
-    font-size: 10pt;
-    line-height: 1.4;
-    background: white !important;
+    font-size: var(--print-font-size);
+    line-height: var(--print-line-height);
   }
 
   body {
-    background: white !important;
-    color: #000 !important;
     margin: 0;
     padding: 0;
+    /* NO forzar fondo blanco - preservar el tema */
   }
 
-  /* ============================================
-     COLORES DE TEXTO
-     ============================================ */
-  
-  h1, h2, h3, h4, h5, h6 {
-    color: #000 !important;
-    font-weight: bold !important;
-  }
-
-  p, span, div, li, td, th {
-    color: #1a1a1a !important;
-  }
-
-  .text-muted-foreground,
-  [class*="muted"] {
-    color: #555 !important;
-  }
-
-  a {
-    color: #4f46e5 !important;
-    text-decoration: none !important;
-  }
-
-  [class*="Badge"],
-  .badge {
-    background-color: #f5f5f5 !important;
-    color: #333 !important;
-    border: 1px solid #d0d0d0 !important;
-  }
-
-  /* Gradientes de texto - convertir a color sólido */
-  .bg-clip-text,
-  .text-transparent,
-  [class*="bg-gradient"] {
-    background: none !important;
-    -webkit-background-clip: unset !important;
-    background-clip: unset !important;
-    -webkit-text-fill-color: #4f46e5 !important;
-    color: #4f46e5 !important;
-  }
-
-  svg {
-    color: currentColor !important;
-  }
-
-  svg * {
-    fill: currentColor !important;
-  }
-
-  /* ============================================
-     OCULTAR ELEMENTOS DE UI
-     ============================================ */
-  
+  /* Ocultar elementos de interfaz */
   .print\:hidden,
-  .fixed,
-  button,
+  .fixed.bottom-6.right-6,
+  .fixed.inset-0.pointer-events-none,
+  button:not(.print-only),
   [role="tooltip"] {
     display: none !important;
   }
 
+  /* Eliminar SOLO animaciones y transiciones, NO sombras */
   *,
   *::before,
   *::after {
     animation: none !important;
     transition: none !important;
-    box-shadow: none !important;
+  }
+
+  /* Preservar sombras sutiles para mejor diseño */
+  .shadow-lg,
+  .shadow-md {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  /* Contenedor principal */
+  .min-h-screen {
+    min-height: auto !important;
+  }
+
+  /* ============================================
+     MODO CLARO (Light Mode)
+     ============================================ */
+
+  /* Detectar cuando NO está en modo oscuro */
+  body:not(.dark) {
+    /* Preservar el fondo claro original */
+    background: oklch(0.97 0.005 260) !important;
+    color: oklch(0.25 0.02 260) !important;
+  }
+
+  body:not(.dark) .bg-background {
+    background: oklch(0.97 0.005 260) !important;
+  }
+
+  body:not(.dark) .text-foreground {
+    color: oklch(0.25 0.02 260) !important;
+  }
+
+  body:not(.dark) .bg-white {
+    background: white !important;
+  }
+
+  body:not(.dark) .text-muted-foreground {
+    color: oklch(0.45 0.02 260) !important;
+  }
+
+  body:not(.dark) [class*="border-"] {
+    border-color: oklch(0.88 0.01 260) !important;
+  }
+
+  /* ============================================
+     MODO OSCURO (Dark Mode)
+     ============================================ */
+
+  /* Preservar colores del modo oscuro */
+  .dark,
+  body.dark {
+    background: oklch(0.12 0.03 270) !important;
+    color: oklch(0.95 0.01 250) !important;
+  }
+
+  .dark .bg-background {
+    background: oklch(0.12 0.03 270) !important;
+  }
+
+  .dark .bg-card {
+    background: oklch(0.16 0.03 270) !important;
+  }
+
+  .dark .text-foreground {
+    color: oklch(0.95 0.01 250) !important;
+  }
+
+  .dark .text-muted-foreground {
+    color: oklch(0.65 0.02 250) !important;
+  }
+
+  .dark .bg-secondary {
+    background: oklch(0.22 0.04 270) !important;
+  }
+
+  .dark [class*="border-"] {
+    border-color: oklch(0.3 0.03 270) !important;
+  }
+
+  /* Preservar colores primarios y acentos */
+  .dark .text-primary,
+  .dark .bg-primary {
+    color: oklch(0.65 0.2 250) !important;
+  }
+
+  .dark .text-accent {
+    color: oklch(0.55 0.15 170) !important;
+  }
+
+  /* ============================================
+     TIPOGRAFÍA
+     ============================================ */
+
+  h1 {
+    font-size: calc(var(--print-font-size) * 2);
+    page-break-after: avoid;
+    margin-bottom: 0.4rem;
+    margin-top: 0;
+  }
+
+  h2 {
+    font-size: calc(var(--print-font-size) * 1.5);
+    page-break-after: avoid;
+    margin-top: 0.8rem;
+    margin-bottom: 0.3rem;
+  }
+
+  h3 {
+    font-size: calc(var(--print-font-size) * 1.25);
+    page-break-after: avoid;
+    margin-bottom: 0.25rem;
+  }
+
+  h4 {
+    font-size: calc(var(--print-font-size) * 1.1);
+    page-break-after: avoid;
+  }
+
+  p {
+    orphans: 3;
+    widows: 3;
+    margin-bottom: 0.3rem;
   }
 
   /* ============================================
      ESTRUCTURA Y LAYOUT
      ============================================ */
 
-  @page {
-    size: A4;
-    margin: 15mm 12mm;
-  }
-
   header {
-    padding-top: 0.5rem !important;
-    padding-bottom: 0.5rem !important;
+    padding-top: 0.4rem !important;
+    padding-bottom: 0.4rem !important;
     page-break-after: avoid;
   }
 
   section {
-    padding-top: 0.8rem !important;
-    padding-bottom: 0.8rem !important;
+    padding-top: 0.6rem !important;
+    padding-bottom: 0.6rem !important;
     page-break-inside: avoid;
   }
 
   footer {
-    padding-top: 0.6rem !important;
-    padding-bottom: 0.4rem !important;
-    font-size: 8pt !important;
+    page-break-before: avoid;
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.3rem !important;
+    font-size: 7pt !important;
   }
 
+  /* Contenedor máximo */
   .max-w-4xl {
     max-width: 100% !important;
     padding-left: 0 !important;
@@ -188,157 +209,300 @@
      COMPONENTES
      ============================================ */
 
+  /* Cards - preservar estilos */
   .card,
   [class*="Card"] {
     page-break-inside: avoid;
     break-inside: avoid;
-    border: 1px solid #e0e0e0 !important;
-    margin-bottom: 0.4rem !important;
-    background: white !important;
+    margin-bottom: 0.35rem !important;
   }
 
   [class*="CardContent"] {
-    padding: 0.5rem !important;
+    padding: 0.4rem !important;
   }
 
+  /* Timeline items */
+  .timeline-item,
+  [class*="TimelineItem"],
+  .relative.pl-8 {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    margin-bottom: 0.4rem !important;
+    padding-bottom: 0.4rem !important;
+  }
+
+  /* Separadores - reducir espacio */
   [class*="Separator"] {
-    margin-top: 0.3rem !important;
-    margin-bottom: 0.3rem !important;
-    border-color: #d0d0d0 !important;
+    page-break-after: avoid;
+    margin-top: 0.25rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  /* Badges */
+  .badge,
+  [class*="Badge"] {
+    page-break-inside: avoid;
+    padding: 0.08rem 0.25rem !important;
+    font-size: 7.5pt !important;
+  }
+
+  /* Skill bars */
+  .skill-bar,
+  [class*="SkillBar"] {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    margin-bottom: 0.25rem !important;
   }
 
   .h-2 {
-    height: 0.4rem !important;
+    height: 0.35rem !important;
+  }
+
+  /* Grids */
+  .grid {
+    page-break-inside: auto;
+    gap: 0.3rem !important;
   }
 
   /* ============================================
-     TIPOGRAFÍA
+     ESPACIADO COMPACTO
      ============================================ */
 
-  h1 {
-    font-size: 22pt;
-    margin-bottom: 0.5rem;
-    page-break-after: avoid;
+  .space-y-8 > * + * {
+    margin-top: 0.4rem !important;
   }
 
-  h2 {
-    font-size: 16pt;
-    margin-top: 1rem;
-    margin-bottom: 0.4rem;
-    page-break-after: avoid;
+  .space-y-6 > * + * {
+    margin-top: 0.3rem !important;
   }
 
-  h3 {
-    font-size: 13pt;
-    margin-bottom: 0.3rem;
-    page-break-after: avoid;
+  .space-y-3 > * + * {
+    margin-top: 0.15rem !important;
   }
 
-  h4 {
-    font-size: 11pt;
-    page-break-after: avoid;
+  .space-y-2 > * + * {
+    margin-top: 0.1rem !important;
   }
 
-  p {
-    orphans: 3;
-    widows: 3;
-    margin-bottom: 0.4rem;
+  .space-y-1\.5 > * + * {
+    margin-top: 0.08rem !important;
   }
 
-  ul, ol {
+  .gap-6 {
+    gap: 0.35rem !important;
+  }
+
+  .gap-4 {
+    gap: 0.25rem !important;
+  }
+
+  .gap-3 {
+    gap: 0.18rem !important;
+  }
+
+  .gap-2 {
+    gap: 0.12rem !important;
+  }
+
+  /* Padding reducido */
+  .py-16 {
+    padding-top: 0.6rem !important;
+    padding-bottom: 0.6rem !important;
+  }
+
+  .py-24 {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+
+  .py-12 {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+
+  .p-6 {
+    padding: 0.4rem !important;
+  }
+
+  .p-5 {
+    padding: 0.35rem !important;
+  }
+
+  .p-4 {
+    padding: 0.3rem !important;
+  }
+
+  .px-6 {
+    padding-left: 0.4rem !important;
+    padding-right: 0.4rem !important;
+  }
+
+  .mb-3,
+  .mb-2 {
+    margin-bottom: 0.15rem !important;
+  }
+
+  /* ============================================
+     ICONOS Y ELEMENTOS GRÁFICOS
+     ============================================ */
+
+  svg {
+    width: 0.7rem !important;
+    height: 0.7rem !important;
+  }
+
+  /* Contacto y enlaces */
+  .inline-flex.items-center.gap-2,
+  .inline-flex.items-center {
+    gap: 0.15rem !important;
+    padding: 0.15rem 0.3rem !important;
+    font-size: 7.5pt !important;
+  }
+
+  /* ============================================
+     LISTAS
+     ============================================ */
+
+  ul,
+  ol {
     page-break-inside: avoid;
+    margin-bottom: 0.25rem;
   }
 
   li {
     page-break-inside: avoid;
-    margin-bottom: 0.15rem;
-    font-size: 9pt;
+    margin-bottom: 0.1rem;
+    font-size: 8.5pt;
   }
 
   /* ============================================
-     ESPACIADO
+     GRADIENTES - Preservar colores
      ============================================ */
 
-  .space-y-8 > * + * {
-    margin-top: 0.5rem !important;
+  .bg-gradient-to-r,
+  .bg-gradient-to-br,
+  .bg-gradient-to-bl {
+    background-image: linear-gradient(to right, oklch(0.65 0.2 250), oklch(0.55 0.15 170)) !important;
   }
 
-  .space-y-6 > * + * {
-    margin-top: 0.4rem !important;
+  .bg-clip-text {
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
   }
 
-  .space-y-3 > * + * {
-    margin-top: 0.2rem !important;
+  .text-transparent {
+    -webkit-text-fill-color: transparent !important;
   }
 
-  .gap-4 {
-    gap: 0.3rem !important;
-  }
-
-  .gap-3 {
-    gap: 0.2rem !important;
-  }
-
-  .gap-2 {
-    gap: 0.15rem !important;
+  /* En modo claro, usar colores diferentes para gradientes */
+  body:not(.dark) .bg-gradient-to-r,
+  body:not(.dark) .bg-gradient-to-br,
+  body:not(.dark) .bg-gradient-to-bl {
+    background-image: linear-gradient(to right, oklch(0.45 0.18 260), oklch(0.42 0.12 170)) !important;
   }
 
   /* ============================================
-     ICONOS
+     CONFIGURACIÓN POR TAMAÑO DE HOJA
      ============================================ */
 
-  svg {
-    width: 0.8rem !important;
-    height: 0.8rem !important;
+  /* A4 (210mm x 297mm) - Estándar */
+  @page {
+    size: A4;
+    margin: 12mm 10mm;
   }
 
-  /* ============================================
-     OPTIMIZACIONES
-     ============================================ */
+  .max-w-4xl {
+    padding-left: 6mm !important;
+    padding-right: 6mm !important;
+  }
+}
 
+/* ============================================
+   TAMAÑO: LETTER (8.5in x 11in)
+   ============================================ */
+
+@media print and (width: 8.5in) and (height: 11in) {
+  @page {
+    size: letter;
+    margin: 0.5in 0.4in;
+  }
+
+  :root {
+    --print-font-size: 9pt;
+  }
+
+  .max-w-4xl {
+    padding-left: 0.25in !important;
+    padding-right: 0.25in !important;
+  }
+}
+
+/* ============================================
+   TAMAÑO: LEGAL (8.5in x 14in)
+   ============================================ */
+
+@media print and (width: 8.5in) and (height: 14in) {
+  @page {
+    size: legal;
+    margin: 0.6in 0.4in;
+  }
+
+  :root {
+    --print-font-size: 10pt;
+  }
+
+  section {
+    padding-top: 0.8rem !important;
+    padding-bottom: 0.8rem !important;
+  }
+}
+
+/* ============================================
+   OPTIMIZACIONES ADICIONALES
+   ============================================ */
+
+@media print {
+  /* Evitar que elementos se corten entre páginas */
+  img,
+  table,
+  figure,
+  blockquote {
+    page-break-inside: avoid;
+  }
+
+  /* Asegurar que el contenido no se desborde */
   * {
     max-width: 100%;
     overflow: visible !important;
     word-wrap: break-word;
   }
 
-  img, table, figure, blockquote {
-    page-break-inside: avoid;
+  /* Enlaces - NO mostrar URLs para mantener limpio */
+  a[href^="http"]::after {
+    content: none !important;
+  }
+
+  /* Optimizar líneas de timeline */
+  .absolute.left-\[5px\] {
+    display: block !important;
+  }
+
+  /* Puntos de timeline */
+  .absolute.left-0.top-1 {
+    display: block !important;
   }
 }
 
 /* ============================================
-   TAMAÑOS DE PÁGINA ALTERNATIVOS
+   ESTILOS PARA PANTALLA (NO IMPRESIÓN)
    ============================================ */
 
-@media print and (width: 8.5in) and (height: 11in) {
-  @page {
-    size: letter;
-    margin: 0.6in 0.5in;
+@media screen {
+  .screen-only {
+    display: block;
   }
-}
 
-@media print and (width: 8.5in) and (height: 14in) {
-  @page {
-    size: legal;
-    margin: 0.7in 0.5in;
-  }
-}
-
-@media print and (width: 297mm) and (height: 420mm) {
-  @page {
-    size: A3;
-    margin: 20mm 18mm;
-  }
-}
-
-@media print and (width: 148mm) and (height: 210mm) {
-  @page {
-    size: A5;
-    margin: 10mm 8mm;
-  }
-  
-  html {
-    font-size: 8pt;
+  .print-only {
+    display: none;
   }
 }
